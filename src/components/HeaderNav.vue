@@ -10,6 +10,7 @@
   router>
     <el-menu-item index="/home">首页</el-menu-item>
     <el-menu-item index="/about">商品管理</el-menu-item>
+    <el-menu-item index="/params">规格参数</el-menu-item>
     <el-menu-item index="/login">登录注册</el-menu-item>
     <el-menu-item class="user">
         <span class="user-name">wjs
@@ -21,6 +22,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 export default {
     data() {
       return {
@@ -28,11 +30,20 @@ export default {
       };
     },
     methods:{
+        ...mapMutations('login',['setUser']),
         logoutHandle(){
-            // 把头像哪里清空
-            // 返回登录页面
+            this.setUser({})
+            localStorage.removeItem('ego')
+            this.$router.push('/login')
         },
-        handleSelect(){}
+        handleSelect(key,keyPath){
+            sessionStorage.setItem("key",key)
+        }
+    },
+    mounted(){
+        if(sessionStorage.getItem('key')){
+            this.activeIndex = sessionStorage.getItem('key')
+        }
     }
 }
 </script>

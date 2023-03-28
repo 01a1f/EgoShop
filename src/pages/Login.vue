@@ -10,7 +10,7 @@
         type="border-card"
         stretch
       >
-        <el-tab-pane label="登录" name="first">
+        <el-tab-pane label="登录" name="login">
           <el-form
             :model="loginForm"
             status-icon
@@ -35,7 +35,7 @@
           </el-form>
         </el-tab-pane>
 
-        <el-tab-pane label="注册" name="second">
+        <el-tab-pane label="注册" name="register">
           <el-form
             :model="registerForm"
             status-icon
@@ -47,12 +47,22 @@
               <el-input type="text" v-model="registerForm.username"></el-input>
             </el-form-item>
 
-            <el-form-item label="密码" label-width="60px" prop="password">
-              <el-input type="password" v-model="registerForm.password"></el-input>
+            <el-form-item label="邮箱" label-width="60px" prop="email">
+              <el-input type="text" v-model="registerForm.email"></el-input>
             </el-form-item>
 
-            <el-form-item label="确认密码" label-width="60px" prop="repassword">
-              <el-input type="password" v-model="registerForm.repassword"></el-input>
+            <el-form-item label="密码" label-width="60px" prop="password">
+              <el-input
+                type="password"
+                v-model="registerForm.password"
+              ></el-input>
+            </el-form-item>
+
+            <el-form-item label="确认密码" label-width="70px" prop="repassword">
+              <el-input
+                type="password"
+                v-model="registerForm.repassword"
+              ></el-input>
             </el-form-item>
 
             <el-form-item>
@@ -69,13 +79,15 @@
 </template>
 
 <script>
+import api from "../api/index.js";
+import { mapMutations } from "vuex";
 export default {
   name: "Login",
   data() {
     var checkName = (rule, value, callback) => {
       if (!value) {
         callback(new Error("用户名不能为空"));
-      } else if (value.length < 6) {
+      } else if (value.length < 3) {
         callback(new Error("长度不够"));
       } else {
         callback();
@@ -98,18 +110,19 @@ export default {
       }
     };
     return {
-      activeName: "first",
+      activeName: "login",
       labelPosition: "right",
       loginForm: {
         username: "",
         password: "",
       },
-      registerForm:{
-        username:'',
-        password:'',
-        repassword:''
+      registerForm: {
+        username: "",
+        email: "",
+        password: "",
+        repassword: "",
       },
-      activeTab:'login',
+      activeTab: "login",
       rules: {
         username: [{ validator: checkName, trigger: "blur" }],
         password: [{ validator: validatePass, trigger: "blur" }],
@@ -117,23 +130,65 @@ export default {
       rules2: {
         username: [{ validator: checkName, trigger: "blur" }],
         password: [{ validator: validatePass, trigger: "blur" }],
-        repassword:[{ validator: validatePass2, trigger: "blur" }],
+        repassword: [{ validator: validatePass2, trigger: "blur" }],
       },
     };
   },
   methods: {
+    ...mapMutations("login", ["setUser"]),
     handleClick(tab, event) {
-      this.activeTab = tab.name
+      this.activeTab = tab.name;
     },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          if(this.activeTab=='login')
-          {
-            console.log(this.loginForm)
-          }
-          else{
-            console.log(this.registerForm)
+          if (this.activeTab == "login") {
+            var params = new URLSearchParams(this.loginForm);
+            api.login(params).then((res) => {
+              if (res.data.status === 200) {
+                this.setUser(res.data);
+                localStorage.setItem("ego", JSON.stringify(res.data));
+                this.$router.push('/')
+              } else {
+                const h = this.$createElement;
+
+                this.$notify({
+                  title: "登陆失败",
+                  message: h(
+                    "i",
+                    { style: "color: teal" },
+                    "用户名密码错误"
+                  ),
+                });
+              }
+            });
+          } else {
+            var params = new URLSearchParams(this.registerForm)
+            api.register(params).then(res=>{
+              if(res.data.status === 200){
+                const h = this.$createElement;
+
+                this.$notify({
+                  title: "注册成功",
+                  message: h(
+                    "i",
+                    { style: "color: teal" },
+                    "请前往登录页面登录"
+                  ),
+                });
+              }else{
+                const h = this.$createElement;
+
+                this.$notify({
+                  title: "注册失败",
+                  message: h(
+                    "i",
+                    { style: "color: teal" },
+                    "请重新注册"
+                  ),
+                });
+              }
+            })
           }
         } else {
           console.log("error submit!!");

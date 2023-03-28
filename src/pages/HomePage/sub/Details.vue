@@ -2,15 +2,22 @@
   <div class="detail-wrap">
     <div class="detail-left">
       <div class="product-board">
-        <img src="" alt="">
+        <img src="../../../assets/pictures/icon/1.png" alt="">
         <ul>
-          <li v-for="(item,index) in detailNav" :key="index">
-            
-          </li>
+          <router-link 
+          active-class="active"
+          tag="li" v-for="(item,index) in detailNav" 
+          :key="index"
+          :to="`/details/${item.id}`"
+          >
+            {{ item.title }}
+          </router-link>
         </ul>
       </div>
     </div>
-    <div class="detail-right"></div>
+    <div class="detail-right">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
@@ -42,7 +49,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .detail-wrap {
   width: 1200px;
   margin: 0 auto;
@@ -62,6 +69,10 @@ export default {
 .product-board {
   background: #fff;
   padding: 20px 0;
+}
+.product-board img {
+  width: 100px;
+  height: 100px;
 }
 .product-board ul {
   margin-top: 20px;
@@ -92,7 +103,7 @@ export default {
   color: #999;
   line-height: 1.8;
 }
-.sales-board-from {
+.sales-board-form {
   padding: 10px 20px;
   font-size: 14px;
 }
@@ -102,6 +113,7 @@ export default {
 }
 .sales-board-line-left {
   display: inline-block;
+  margin-right: 10px;
 }
 .sales-board-line-right {
   display: inline-block;

@@ -29,6 +29,14 @@ const routes =[
         }
     },
     {
+        path:'/params',
+        component:()=>import('../pages/Params.vue'),
+        name:'Params',
+        meta:{
+            isLogin:true
+        }
+    },
+    {
         path:'/login',
         component:Login,
         name:'Login'
@@ -36,7 +44,29 @@ const routes =[
     {
         path:'/details',
         name:'Detiles',
-        component:Details
+        component:Details,
+        children:[
+            {
+                path:'openproduct',
+                name:'OpenProduct',
+                component:()=>import('../pages/HomePage/sub/openproduct.vue')
+            },
+            {
+                path:'golife',
+                name:'Golife',
+                component:()=>import('../pages/HomePage/sub/golife.vue')
+            },
+            {
+                path:'height',
+                name:'Height',
+                component:()=>import('../pages/HomePage/sub/height.vue')
+            },
+            {
+                path:'logo',
+                name:'Logo',
+                component:()=>import('../pages/HomePage/sub/logo.vue')
+            }
+        ]
     }
 ]
 

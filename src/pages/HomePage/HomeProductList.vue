@@ -8,7 +8,7 @@
             <h2>{{ item.title }}</h2>
             <p>{{ item.desc }}</p>
             <div class="index-board-button">
-                <router-link to="/details" class="button">立即购买</router-link>
+                <router-link :to="'/details/'+item.url" class="button">立即购买</router-link>
             </div>
         </div>
     </div>

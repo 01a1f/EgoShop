@@ -1,12 +1,16 @@
 <template>
   <div>
-    <h2>我是关于</h2>
+    <Index/>
   </div>
 </template>
 
 <script>
+import Index from './Product/index.vue'
 export default {
-    name:'About'
+    name:'About',
+    components:{
+      Index
+    }
 
 }
 </script>
