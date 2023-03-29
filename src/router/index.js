@@ -30,7 +30,7 @@ const routes =[
     },
     {
         path:'/params',
-        component:()=>import('../pages/Params.vue'),
+        component:()=>import('../pages/Params'),
         name:'Params',
         meta:{
             isLogin:true

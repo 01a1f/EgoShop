@@ -21,14 +21,25 @@ const api = {
     search(params){
         return axios.get(base.baseUrl + base.search,{params})
     },
+    //添加书籍
     insertTbItem(params){
         return axios.get(base.baseUrl + base.insertTbItem,{params})
     },
+    //书籍删除
     deleteItemById(params){
         return axios.get(base.baseUrl + base.deleteItemById,{params})
     },
+    //预更新
     preUpdateItem(params){
         return axios.get(base.baseUrl + base.preUpdateItem,{params})
+    },
+    //商品编辑
+    UpdateTbItem(params){
+        return axios.get(base.baseUrl + base.UpdateTbItem,{params})
+    },
+    //规格参数查询
+    selectItemParamAll(params){
+        return axios.get(base.baseUrl + base.selectItemParamAll,{params})
     }
 
 }

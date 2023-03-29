@@ -4,6 +4,7 @@
     <ProductList/>
     <DevidePage/>
     <ProductAdd/>
+    <ProductEditor/>
   </div>
 </template>
 
@@ -12,13 +13,14 @@ import ProductHeader from "./ProductHeader.vue";
 import ProductList from "./ProductList.vue";
 import DevidePage from "./DevidePage.vue"
 import ProductAdd from "./ProductAdd.vue";
+import ProductEditor from "./ProductEditor.vue";
 export default {
     data(){
       return {
         
       }
     },
-    components: { ProductList , DevidePage , ProductHeader , ProductAdd},
+    components: { ProductList , DevidePage , ProductHeader , ProductAdd , ProductEditor},
     methods:{
       
     }

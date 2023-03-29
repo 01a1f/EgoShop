@@ -206,5 +206,56 @@ router.get('/backend/item/deleteItemById',(req,res)=>{
     })
   })
 
+  //编辑产品数据提交
+  router.get('/backend/item/UpdateTbItem',(req,res)=>{
+    const id = url.parse(req.url,true).query.id;
+    const name = url.parse(req.url,true).query.name || '';
+    const price = url.parse(req.url,true).query.price || '';
+    const num = url.parse(req.url,true).query.num || '';
+    const miaoshu = url.parse(req.url,true).query.miaoshu || '';
+    const type = url.parse(req.url,true).query.type || '';
+    const sql = 'update product set name=?,price=?,type=?,miaoshu=?,num=? where id=?'
+    const arr = [name,price,type,miaoshu,num,id]
+    client.query(sql,arr,(err,result)=>{
+        if(err){
+            console.log(err)
+        }else{
+            if(result.affectedRows>0){
+                res.send({
+                    status:200,
+                    msg:'修改成功'
+                })
+            }else{
+                res.send({
+                    status:500,
+                    msg:'修改失败'
+                })
+            }
+        }
+    })
+  })
+
+  //规格参数查询
+  router.get("/backend/itemParam/selectItemParamAll",(req,res)=>{
+    const page = url.parse(req.url,true).query.page || 1;
+    const sql = `select * from product order by id desc limit 10 offset ${(page-1)*10}`
+    client.query(sql,null,(err,result)=>{
+        if(err){
+            console.log(err)
+        }else{
+            if(result.length>0){
+                res.send({
+                    status:200,
+                    result
+                })
+            }else{
+                res.send({
+                    status:500,
+                    msg:'查询失败'
+                })
+            }
+        }
+    })
+  })
 
 module.exports = router

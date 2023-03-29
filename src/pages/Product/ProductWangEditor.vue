@@ -32,6 +32,17 @@ export default {
             mode: 'simple', // or 'simple'
         }
     },
+    props:{
+        miaoshu:{
+            type:String,
+            default:""
+        }
+    },
+    watch:{
+        miaoshu(newVal,oldVal){
+            this.html = newVal
+        }
+    },
     methods: {
         onCreated(editor) {
             this.editor = Object.seal(editor) // 一定要用 Object.seal() ，否则会报错
@@ -41,10 +52,7 @@ export default {
         }
     },
     mounted() {
-        // 模拟 ajax 请求，异步渲染编辑器
-        setTimeout(() => {
-            this.html = '<p>模拟 Ajax 异步设置内容 HTML</p>'
-        }, 1500)       
+
     },
     beforeDestroy() {
         const editor = this.editor
