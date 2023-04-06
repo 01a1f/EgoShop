@@ -40,8 +40,37 @@ const api = {
     //规格参数查询
     selectItemParamAll(params){
         return axios.get(base.baseUrl + base.selectItemParamAll,{params})
+    },
+    //参数条数总数
+    totalParams(){
+        return axios.get(base.baseUrl + base.totalParams)
+    },
+    //规格参数模糊查询
+    paramsSearch(params){
+        return axios.get(base.baseUrl + base.paramsSearch,{params})
+    },
+    //规格参数添加数据
+    insertItemParam(params){
+        return axios.get(base.baseUrl + base.insertItemParam,{params})
+    },
+    //规格参数删除
+    paramsDelete(params){
+        return axios.get(base.baseUrl + base.paramsDelete,{params})
+    },
+    selectContentCategory(params){
+        return axios.get(base.baseUrl + base.selectContentCategory,{params})
+    },
+    //广告导航管理 添加子导航
+    insertContentCategory(params){
+        return axios.get(base.baseUrl + base.insertContentCategory,{params})
+    },
+    //广告导航管理 添加子导航
+    updateContentCategory(params){
+        return axios.get(base.baseUrl + base.updateContentCategory,{params})
+    },
+    deleteContentCategory(params){
+        return axios.get(base.baseUrl + base.deleteContentCategory,{params})
     }
-
 }
 
 export default api

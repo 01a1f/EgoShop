@@ -18,6 +18,11 @@
 import HeaderNav from '@/components/HeaderNav.vue';
 export default {
   name: 'App',
+  data(){
+    return {
+      isRouterAlive:true
+    }
+  },
   components:{
     HeaderNav
   }

@@ -10,6 +10,11 @@ export default {
     name:'About',
     components:{
       Index
+    },
+    data(){
+      return {
+        
+      }
     }
 
 }

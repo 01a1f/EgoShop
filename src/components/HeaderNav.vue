@@ -11,6 +11,7 @@
     <el-menu-item index="/home">首页</el-menu-item>
     <el-menu-item index="/about">商品管理</el-menu-item>
     <el-menu-item index="/params">规格参数</el-menu-item>
+    <el-menu-item index="/ADCategory">广告管理</el-menu-item>
     <el-menu-item index="/login">登录注册</el-menu-item>
     <el-menu-item class="user">
         <span class="user-name">wjs

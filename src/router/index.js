@@ -37,6 +37,14 @@ const routes =[
         }
     },
     {
+        path:'/ADCategory',
+        component:()=>import('../pages/ADCategory'),
+        name:'ADCategory',
+        meta:{
+            isLogin:true
+        }
+    },
+    {
         path:'/login',
         component:Login,
         name:'Login'
